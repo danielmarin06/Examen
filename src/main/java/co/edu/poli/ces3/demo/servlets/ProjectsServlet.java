@@ -2,10 +2,9 @@ package co.edu.poli.ces3.demo.servlets;
 
 
 import co.edu.poli.ces3.demo.database.dao.Tasks;
-import co.edu.poli.ces3.demo.database.repositories.UserRepository;
+import co.edu.poli.ces3.demo.database.repositories.ProjectsRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,8 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
-@WebServlet(name = "userServlet", value = "/api/tasks")
-public class UserServlet extends MyServlet {
+@WebServlet(name = "projectsServlet", value = "/api/projects")
+public class ProjectsServlet extends MyServlet {
 
     private GsonBuilder gsonBuilder;
     private Gson gson;
@@ -30,21 +29,13 @@ public class UserServlet extends MyServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
-        UserRepository repo = new UserRepository();
+        ProjectsRepository repo = new ProjectsRepository();
         try {
 
-            String parametro = req.getParameter("id_task");
 
-            if(parametro != null){
-                int id_task = Integer.parseInt(parametro);
-                Tasks task = repo.getOne(id_task);
 
-                if(task != null){
-                    out.print(gson.toJson(task));
-                }
-            }else{
                 out.print(gson.toJson(repo.get()));
-            }
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

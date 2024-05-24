@@ -1,0 +1,74 @@
+package co.edu.poli.ces3.demo.database.repositories;
+
+import co.edu.poli.ces3.demo.database.CRUD2;
+import co.edu.poli.ces3.demo.database.ConexionMySql;
+import co.edu.poli.ces3.demo.database.dao.Projects;
+import co.edu.poli.ces3.demo.database.dao.Tasks;
+
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProjectsRepository implements CRUD2 {
+
+    private ConexionMySql cnnMysql;
+
+    public ProjectsRepository(){
+        cnnMysql = new ConexionMySql("localhost");
+    }
+
+
+
+    @Override
+    public List<Projects> get() throws SQLException {
+        Connection con = cnnMysql.conexion();
+        Statement sts = con.createStatement();
+        ResultSet rs = sts.executeQuery("SELECT * FROM projects");
+        List<Projects> list = new ArrayList<>();
+
+        while (rs.next()){
+            list.add(new Projects(
+                    rs.getInt("id_project"),
+                    rs.getString("project_name"),
+                    rs.getString("manager"),
+                    rs.getString("details"),
+                    rs.getDate("created_at"),
+                    rs.getDate("updated_at")
+            ));
+        }
+
+        rs.close();
+        sts.close();
+        con.close();
+
+        return list;
+    }
+
+    @Override
+    public Projects getOne(int id_project) throws SQLException {
+        Connection con = cnnMysql.conexion();
+        PreparedStatement sts = con.prepareStatement("SELECT * FROM tasks WHERE id_project = ?");
+        sts.setInt(1,id_project);
+        ResultSet rs = sts.executeQuery();
+        if(rs.next())
+            return new Projects(
+                    rs.getInt("id_project"),
+                    rs.getString("project_name"),
+                    rs.getString("manager"),
+                    rs.getString("details"),
+                    rs.getDate("created_at"),
+                    rs.getDate("updated_at")
+            );
+        return null;
+
+    }
+
+    @Override
+    public Projects insert() {
+        return null;
+    }
+    public void disconect() throws SQLException {
+        cnnMysql.disconect();
+    }
+}

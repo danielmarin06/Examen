@@ -17,8 +17,6 @@ public class UserRepository implements CRUD {
         cnnMysql = new ConexionMySql("localhost");
     }
 
-
-
     @Override
     public List<Tasks> get() throws SQLException {
         Connection con = cnnMysql.conexion();

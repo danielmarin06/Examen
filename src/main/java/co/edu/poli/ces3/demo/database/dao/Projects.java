@@ -2,61 +2,59 @@ package co.edu.poli.ces3.demo.database.dao;
 
 import java.util.Date;
 
-public class Tasks {
+public class Projects {
 
-    private int id_task;
-    private String title;
-    private String description;
-    private String status;
     private int id_project;
+    private String project_name;
+    private String manager;
+    private String details;
     private Date createdAt;
     private Date updatedAt;
 
-    public Tasks(int id_task, String title, String description, String status, int id_project, Date createdAt, Date updatedAt) {
-        this.id_task = id_task;
-        this.title = title;
-        this.description = description;
-        this.status = status;
+    public Projects(int id_project, String project_name, String manager, String details, Date createdAt, Date updatedAt) {
         this.id_project = id_project;
+        this.project_name = project_name;
+        this.manager = manager;
+        this.details = details;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    public Tasks(String title, String description) {
-        this.title = title;
-        this.description = description;
+    public Projects(String title, String description) {
+        this.project_name = project_name;
+        this.details = details;
     }
 
     public int getId_task() {
-        return id_task;
+        return id_project;
     }
 
-    public void setId_project(int id_task) {
-        this.id_task = id_task;
+    public void setId_project(int id_project) {
+        this.id_project = id_project;
     }
 
     public String getProject_name() {
-        return title;
+        return project_name;
     }
 
     public void setProject_name(String title) {
-        this.title = title;
+        this.project_name = project_name;
     }
 
     public String getManager() {
-        return description;
+        return details;
     }
 
     public void setManager(String description) {
-        this.description = description;
+        this.details = details;
     }
 
     public String getDetails() {
-        return description;
+        return details;
     }
 
     public void setDetails(String details) {
-        this.description = description;
+        this.details = details;
     }
 
     public Date getCreatedAt() {
