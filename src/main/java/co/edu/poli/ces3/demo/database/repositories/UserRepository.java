@@ -32,8 +32,8 @@ public class UserRepository implements CRUD {
                     rs.getString("project_name"),
                     rs.getString("manager"),
                     rs.getString("details"),
-                    rs.getDate("createdAt"),
-                    rs.getDate("updatedAt")
+                    rs.getDate("created_at"),
+                    rs.getDate("updated_at")
             ));
         }
 
@@ -56,8 +56,8 @@ public class UserRepository implements CRUD {
                     rs.getString("project_name"),
                     rs.getString("manager"),
                     rs.getString("details"),
-                    rs.getDate("createdAt"),
-                    rs.getDate("updatedAt")
+                    rs.getDate("created_at"),
+                    rs.getDate("updated_at")
             );
         return null;
     }

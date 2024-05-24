@@ -14,7 +14,7 @@ public class ConexionMySql {
     private Connection cnn;
     public ConexionMySql(String host){
         user = "root";
-        password = "";
+        password = "Sistemas";
         this.port = 3306;
         this.host= host != null ? host : "127.0.0.1";
         this.dataBaseName = "examen";
@@ -35,5 +35,9 @@ public class ConexionMySql {
             exception.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        new ConexionMySql("localhost").conexion();
     }
 }
