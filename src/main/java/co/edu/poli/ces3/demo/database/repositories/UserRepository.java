@@ -62,6 +62,7 @@ public class UserRepository implements CRUD {
                     rs.getDate("updated_at")
             );
         return null;
+
     }
 
     @Override
