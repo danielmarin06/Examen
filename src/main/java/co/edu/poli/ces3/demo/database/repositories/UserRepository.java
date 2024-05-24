@@ -23,7 +23,7 @@ public class UserRepository implements CRUD {
     public List<Projects> get() throws SQLException {
         Connection con = cnnMysql.conexion();
         Statement sts = con.createStatement();
-        ResultSet rs = sts.executeQuery("SELECT * FROM users");
+        ResultSet rs = sts.executeQuery("SELECT * FROM projects");
         List<Projects> list = new ArrayList<>();
 
         while (rs.next()){
@@ -47,7 +47,7 @@ public class UserRepository implements CRUD {
     @Override
     public Projects getOne(int id_project) throws SQLException {
         Connection con = cnnMysql.conexion();
-        PreparedStatement sts = con.prepareStatement("SELECT * FROM users WHERE id_project = ?");
+        PreparedStatement sts = con.prepareStatement("SELECT * FROM projects WHERE id_project = ?");
         sts.setInt(1,id_project);
         ResultSet rs = sts.executeQuery();
         if(rs.next())
