@@ -17,7 +17,7 @@ public class ConexionMySql {
         password = "";
         this.port = 3306;
         this.host= host != null ? host : "127.0.0.1";
-        this.dataBaseName = "exam";
+        this.dataBaseName = "examen";
     }
 
 
