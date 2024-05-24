@@ -48,7 +48,7 @@ public class UserRepository implements CRUD {
     @Override
     public Tasks getOne(int id_project) throws SQLException {
         Connection con = cnnMysql.conexion();
-        PreparedStatement sts = con.prepareStatement("SELECT * FROM tasks WHERE id_project = ?");
+        PreparedStatement sts = con.prepareStatement("SELECT * FROM tasks WHERE id_task = ?");
         sts.setInt(1,id_project);
         ResultSet rs = sts.executeQuery();
         if(rs.next())

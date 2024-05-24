@@ -33,7 +33,20 @@ public class UserServlet extends MyServlet {
         PrintWriter out = resp.getWriter();
         UserRepository repo = new UserRepository();
         try {
-            out.print(gson.toJson(repo.get()));
+
+            String parametro = req.getParameter("id_task");
+
+            if(parametro != null){
+                int id_task = Integer.parseInt(parametro);
+                Tasks task = repo.getOne(id_task);
+
+                if(task != null){
+                    out.print(gson.toJson(task));
+                }
+            }else{
+                out.print(gson.toJson(repo.get()));
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
