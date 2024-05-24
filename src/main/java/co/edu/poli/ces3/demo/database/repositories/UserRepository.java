@@ -2,7 +2,7 @@ package co.edu.poli.ces3.demo.database.repositories;
 
 import co.edu.poli.ces3.demo.database.CRUD;
 import co.edu.poli.ces3.demo.database.ConexionMySql;
-import co.edu.poli.ces3.demo.database.dao.Projects;
+import co.edu.poli.ces3.demo.database.dao.Tasks;
 import com.google.gson.JsonObject;
 
 import java.sql.*;
@@ -20,18 +20,19 @@ public class UserRepository implements CRUD {
 
 
     @Override
-    public List<Projects> get() throws SQLException {
+    public List<Tasks> get() throws SQLException {
         Connection con = cnnMysql.conexion();
         Statement sts = con.createStatement();
-        ResultSet rs = sts.executeQuery("SELECT * FROM projects");
-        List<Projects> list = new ArrayList<>();
+        ResultSet rs = sts.executeQuery("SELECT * FROM tasks");
+        List<Tasks> list = new ArrayList<>();
 
         while (rs.next()){
-            list.add(new Projects(
+            list.add(new Tasks(
+                    rs.getInt("id_task"),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getString("status"),
                     rs.getInt("id_project"),
-                    rs.getString("project_name"),
-                    rs.getString("manager"),
-                    rs.getString("details"),
                     rs.getDate("created_at"),
                     rs.getDate("updated_at")
             ));
@@ -45,17 +46,18 @@ public class UserRepository implements CRUD {
     }
 
     @Override
-    public Projects getOne(int id_project) throws SQLException {
+    public Tasks getOne(int id_project) throws SQLException {
         Connection con = cnnMysql.conexion();
-        PreparedStatement sts = con.prepareStatement("SELECT * FROM projects WHERE id_project = ?");
+        PreparedStatement sts = con.prepareStatement("SELECT * FROM tasks WHERE id_project = ?");
         sts.setInt(1,id_project);
         ResultSet rs = sts.executeQuery();
         if(rs.next())
-            return new Projects(
+            return new Tasks(
+                    rs.getInt("id_task"),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getString("status"),
                     rs.getInt("id_project"),
-                    rs.getString("project_name"),
-                    rs.getString("manager"),
-                    rs.getString("details"),
                     rs.getDate("created_at"),
                     rs.getDate("updated_at")
             );
@@ -63,12 +65,12 @@ public class UserRepository implements CRUD {
     }
 
     @Override
-    public Projects insert() {
+    public Tasks insert() {
         return null;
     }
 
     @Override
-    public Projects update(JsonObject userUpdate, int id) throws SQLException {
+    public Tasks update(JsonObject userUpdate, int id) throws SQLException {
         String sql = "UPDATE users SET name = ?, lastName = ?, mail = ?, password = ?, updatedAt = now() WHERE id = ?";
         Connection cnn = this.cnnMysql.conexion();
         PreparedStatement sts = cnn.prepareStatement(sql);
